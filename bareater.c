@@ -32,13 +32,13 @@ int getminutemoduloindex(time_t timestamp[], int period, int barcount)
 	return -1;
 }
 // crunch takes a bunch of args and returns the number of bars it crunched
-int crunch(time_t tin[], double oin[], double hin[], double lin[], double cin[], double vin[], time_t tout[], double oout[], double hout[], double lout[], double cout[], double vout[], int barsin, int ratio)
+int crunch(time_t tin[], double oin[], double hin[], double lin[], double cin[], double vin[], time_t tout[], double oout[], double hout[], double lout[], double cout[], double vout[], int barsin, int startbar, int ratio)
 {
 	int barsout = 0;
 	int i;
 	time_t tt;
 	double ot, ht, lt, ct, vt;
-	int startbar = getminutemoduloindex(tin, ratio, barsin);
+	//int startbar = getminutemoduloindex(tin, ratio, barsin);
 		//printf("DEBUG: After the getminutemodule\n");
 	if (startbar < 0) return 0;
 	for (i = startbar; i < barsin; )

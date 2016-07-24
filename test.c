@@ -24,7 +24,8 @@ int main(int argc, char *argv[])
 		printf("No bars read!\n");
 		exit(-1);
 	}
-	int barscrunched = crunch(intime, ino, inh, inl, inc, inv, outt, outo, outh, outl, outc, outv, barsread, 5);
+	int startbar = getminutemoduloindex(intime, 5, barsread);
+	int barscrunched = crunch(intime, ino, inh, inl, inc, inv, outt, outo, outh, outl, outc, outv, barsread, startbar, 5);
 	//i=0;
 	while(i < barsread)
 	{
