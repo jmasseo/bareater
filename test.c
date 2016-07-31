@@ -42,23 +42,3 @@ int main(int argc, char *argv[])
         printf("IntT[1] %d InO[1]: %lf Outt[1]: %d  OutO[1]: %lf OutC: %lf\n",  intime[1], ino[1], outt[1],outo[1], outc[1]);
 	return 0;
 }
-
-int readfrom_TimeSymOHLCV_CSV(char *fname, int barstoscan, 
-	time_t tin[], double oout[], double hout[], double lout[], double cout[], double vout[])
-{
-	FILE *f;
-	int rv;
-	int barsread = 0;
-	f = fopen(fname, "r");
-	if (f == NULL) return 0;
-	char scrapstring[512]; // yes i know
-	for (barsread = 0; barsread < barstoscan && !feof(f);)
-	{
-		rv = fscanf(f, "%ld,%[^,],%lf,%lf,%lf,%lf,%lf\n", &tin[barsread], &scrapstring,
-			&oout[barsread], &hout[barsread], &lout[barsread], &cout[barsread], &vout[barsread]);
-		if (rv != 7) { return 0; }
-		barsread++;
-	}
-	fclose(f);
-	return barsread;
-}

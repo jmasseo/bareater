@@ -74,3 +74,23 @@ int crunch(time_t tin[], double oin[], double hin[], double lin[], double cin[],
 		}
 	return barsout;
 }
+
+int readfrom_TimeSymOHLCV_CSV(char *fname, int barstoscan,
+        time_t tin[], double oout[], double hout[], double lout[], double cout[], double vout[])
+{
+        FILE *f;
+        int rv;
+        int barsread = 0;
+        f = fopen(fname, "r");
+        if (f == NULL) return 0;
+        char scrapstring[512]; // yes i know
+        for (barsread = 0; barsread < barstoscan && !feof(f);)
+        {
+                rv = fscanf(f, "%ld,%[^,],%lf,%lf,%lf,%lf,%lf\n", &tin[barsread], &scrapstring,
+                        &oout[barsread], &hout[barsread], &lout[barsread], &cout[barsread], &vout[barsread]);
+                if (rv != 7) { return 0; }
+                barsread++;
+        }
+        fclose(f);
+        return barsread;
+}
